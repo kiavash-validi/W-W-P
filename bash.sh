@@ -12,7 +12,11 @@ echo "در حال پیدا کردن پارتیشن ویندوز..."
 DEVICE=$(sudo fdisk -l | grep -i "Microsoft basic data" | awk '{print $1}')
 if [ -z "$DEVICE" ]; then
     echo "پارتیشن ویندوز پیدا نشد. لطفاً دستگاه را به صورت دستی مشخص کنید."
-    exit 1
+    read -p "پارتیشن ویندوز را وارد کنید (مثلاً /dev/sda2): " DEVICE
+    if [ -z "$DEVICE" ]; then
+        echo "پارتیشن ویندوز مشخص نشد. عملیات متوقف شد."
+        exit 1
+    fi
 fi
 echo "پارتیشن ویندوز پیدا شد: $DEVICE"
 
